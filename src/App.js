@@ -1,4 +1,4 @@
-import {Home} from "./Components/Home";
+import Home from "./Components/Home";
 import {BrowserRouter as Router,Routes,Route} from "react-router-dom";
 import Loginform from "./Components/Loginform";
 import Signup from "./Components/Signup";
@@ -22,12 +22,12 @@ const App = () =>{
         <Routes>
           <Route path="/" element= {<Home />}/>
           <Route path="/loginform" element= {<Loginform />} />
-          <Route path="/Signup" element= {<Signup />} />
-          <Route path='/UserProfile' element = {<UserProfile />}/>
+          <Route path="/signup" element= {<Signup />} />
+          <Route path='/userProfile' element = {<UserProfile />}/>
           <Route path="/contact" element= {<Contact />} />
           <Route path="/privacy" element= {<Privacy />} />
           <Route path="/allActors" element= {<AllActors />} />
-          <Route path="/Backendwork" element= {<Backendwork />}/>
+          <Route path="/backendwork" element= {<Backendwork />}/>
           <Route path="/audition-videos/:actorId" element={<AuditionVideos />} />
         </Routes>
       </Router>
