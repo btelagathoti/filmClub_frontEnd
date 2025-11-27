@@ -57,14 +57,6 @@ const AllActors = () => {
         'Production Assistant (PA)'
     ];
 
-    useEffect(() => {
-        fetchAllActors();
-    }, []);
-
-    useEffect(() => {
-        filterActors();
-    }, [actors, selectedRoles, filterActors]);
-
     // Close dropdowns when clicking outside
     useEffect(() => {
         const handleClickOutside = (event) => {
@@ -106,6 +98,16 @@ const AllActors = () => {
         setDisplayCount(5); // Reset display count when filtering
         setExpandedCards(new Set()); // Reset expanded cards
     }, [actors, selectedRoles]);
+
+
+      useEffect(() => {
+        fetchAllActors();
+    }, []);
+
+    useEffect(() => {
+        filterActors();
+    }, [actors, selectedRoles, filterActors]);
+
 
     const toggleRoleSelection = (role) => {
         setSelectedRoles(prev => {

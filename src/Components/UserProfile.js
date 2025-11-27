@@ -1,4 +1,5 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo} from 'react';
+
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import "./UserProfile.css"
@@ -53,7 +54,7 @@ const UserProfile = () => {
     });
 
     // Role options
-    const onScreenRoles = [
+    const onScreenRoles = useMemo(() =>[
         'Lead Actor / Actress',
         'Supporting Actor / Actress',
         'Antagonist (Villain)',
@@ -63,8 +64,8 @@ const UserProfile = () => {
         'Child Actor',
         'Voice Actor',
         'Stand-in'
-    ];
-    const offScreenRoles = [
+    ], []);
+    const offScreenRoles = useMemo(() => [
         'Director',
         'Assistant Director (AD)',
         'Producer',
@@ -91,7 +92,7 @@ const UserProfile = () => {
         'Grip',
         'Location Manager',
         'Production Assistant (PA)'
-    ];
+    ], []);
 
     useEffect(() => {
         const userEmail = localStorage.getItem('userEmail');
@@ -151,7 +152,7 @@ const UserProfile = () => {
                 console.log('Error loading user data:', err);
                 setLoading(false);
             });
-    }, [navigate]);
+    }, [navigate, onScreenRoles, offScreenRoles]);
 
     // Function to reload user data
     const reloadUserData = async () => {
@@ -213,7 +214,7 @@ const UserProfile = () => {
     };
 
     const handleInputChange = (e) => {
-        const { name, value, type, multiple, options } = e.target;
+        const { name, value, options } = e.target;
         if (name === 'roles') {
             // Multi-select: collect selected options
             const selected = Array.from(options).filter(o => o.selected).map(o => o.value);
