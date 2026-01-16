@@ -1,14 +1,27 @@
-FROM nginx:alpine
+# FROM nginx:alpine
 
-# Remove default nginx content
-RUN rm -rf /usr/share/nginx/html/*
+# # Remove default nginx content
+# RUN rm -rf /usr/share/nginx/html/*
 
-# Copy React build output
-COPY build/ /usr/share/nginx/html/
+# # Copy React build output
+# COPY build/ /usr/share/nginx/html/
 
-EXPOSE 80
+# EXPOSE 80
 
-CMD ["nginx", "-g", "daemon off;"]
+# CMD ["nginx", "-g", "daemon off;"]
 # This Dockerfile sets up an Nginx server to serve a React application.
 # It starts from the official Nginx Alpine image, removes the default content,
 # and copies the React build output into the appropriate directory for Nginx to serve.
+# Build stage
+FROM node:18-alpine AS build
+WORKDIR /app
+COPY package*.json ./
+RUN npm install
+COPY . .
+RUN npm run build
+
+# Production stage
+FROM nginx:alpine
+COPY --from=build /app/build /usr/share/nginx/html
+EXPOSE 80
+CMD ["nginx", "-g", "daemon off;"]
